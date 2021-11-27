@@ -2,6 +2,7 @@ import React, { Component, lazy, Suspense } from 'react'
 import { Route,Switch, Redirect, NavLink} from 'react-router-dom'
 import Header from './components/Header'
 import Loading from './components/Loading'
+import MyNavLink from './components/MyNavLink'
 
 const Home = lazy(()=>import('./pages/Home'))
 const About = lazy(()=>import('./pages/About'))
@@ -24,9 +25,10 @@ export default class App extends Component {
                             
                             {/* 在react中靠路由链接切换组件 */}
                           
-                            <NavLink className="list-group-item" activeClassName='isActive' to='/about'>About</NavLink>
-                            <NavLink className="list-group-item" activeClassName='isActive' to='/home'>Home</NavLink>
-
+                                {/* <NavLink className="list-group-item" activeClassName='isActive' to='/about'>About</NavLink>
+                                <NavLink className="list-group-item" activeClassName='isActive' to='/home'>Home</NavLink> */}
+                                <MyNavLink  to='/about'>About</MyNavLink>
+                                <MyNavLink  to='/home'>Home</MyNavLink>    
                             </div>
                         </div>
                         <div className="col-xs-6">
