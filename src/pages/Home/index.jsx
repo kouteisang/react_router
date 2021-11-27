@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import {Route, Switch, NavLink, Redirect} from 'react-router-dom'
-import News from './News/News'
-import Message from './Message/Message'
+import Loading from '../../components/Loading'
+const News = lazy(()=>import('./News/News'))
+const Message = lazy(()=>import('./Message/Message'))
 
 export default class Home extends Component {
     render() {
@@ -20,11 +21,13 @@ export default class Home extends Component {
                     </ul>
                 </div>
                 <div>
-                    <Switch>
-                        <Route path='/home/news' component={News}/>
-                        <Route path='/home/message' component={Message}/>
-                        <Redirect to='/home/news'/>
-                    </Switch>
+                    <Suspense fallback={<Loading/>}>
+                        <Switch>
+                            <Route path='/home/news' component={News}/>
+                            <Route path='/home/message' component={Message}/>
+                            <Redirect to='/home/news'/>
+                        </Switch>
+                    </Suspense>
                 </div>
             </div>
         )

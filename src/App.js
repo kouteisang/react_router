@@ -1,8 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import { Route,Switch, Redirect, NavLink} from 'react-router-dom'
-import Home from './pages/Home'
-import About from './pages/About'
 import Header from './components/Header'
+import Loading from './components/Loading'
+
+const Home = lazy(()=>import('./pages/Home'))
+const About = lazy(()=>import('./pages/About'))
 
 export default class App extends Component {
     render() {
@@ -31,11 +33,13 @@ export default class App extends Component {
                             <div className="panel">
                             <div className="panel-body">
                             <div>
-                                <Switch>
-                                    <Route path='/about' component={About}></Route>
-                                    <Route path='/home' component={Home}></Route>
-                                    <Redirect to='/about'/>
-                                </Switch>
+                                <Suspense fallback={<Loading/>}>
+                                    <Switch>
+                                        <Route path='/about' component={About}></Route>
+                                        <Route path='/home' component={Home}></Route>
+                                        <Redirect to='/about'/>
+                                    </Switch>
+                                </Suspense>
                             </div>
                             </div>
                             </div>
